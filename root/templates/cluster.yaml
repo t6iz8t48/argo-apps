@@ -13,7 +13,3 @@ spec:
     path: cluster/
     repoURL: https://github.com/t6iz8t48/argo-apps.git
     targetRevision: HEAD
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
