@@ -2,24 +2,21 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: hello-world
+  namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: argocd
+    namespace: argocd-test-apps
     server: https://kubernetes.default.svc
   project: default
   source:
+    path: deploy/helm/hello-kubernetes
+    repoURL: https://github.com/paulbouwer/hello-kubernetes
+    targetRevision: HEAD
     helm:
       parameters:
       - name: deployment.replicaCount
         value: "1"
       - name: message
         value: This is a test of app-of-apps-of-apps
-    path: deploy/helm/hello-kubernetes
-    repoURL: https://github.com/paulbouwer/hello-kubernetes
-    targetRevision: HEAD
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
