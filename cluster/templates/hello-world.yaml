@@ -19,4 +19,4 @@ spec:
       - name: deployment.replicaCount
         value: "1"
       - name: message
-        value: This is a test of app-of-apps-of-apps
+        value: {spec.source.params.message}
