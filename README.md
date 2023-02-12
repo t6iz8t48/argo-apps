@@ -1,0 +1,1 @@
+Argocd apps of app of apps with common parameters
