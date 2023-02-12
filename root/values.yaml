@@ -1,1 +1,2 @@
-message: TEST
+root:
+  message: "Message set from root"
