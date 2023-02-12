@@ -19,4 +19,4 @@ spec:
       - name: deployment.replicaCount
         value: "1"
       - name: message
-        value: "{{spec.source.params.message}}"
+        value: "{{ .Values.message }}"
