@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: hello-world
+  name: {{ .Values.cluster.name }}-hello-world
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: argocd-apps-test
-    server: https://kubernetes.default.svc
+    server: {{ .Values.global.server }}
   project: default
   source:
     path: deploy/helm/hello-kubernetes
@@ -19,4 +19,4 @@ spec:
       - name: deployment.replicaCount
         value: "1"
       - name: message
-        value: "{{ .Values.message }}"
+        value: "Hello world from {{ .Values.cluster.name }}"

@@ -1,0 +1,35 @@
+{{- range $app := .Values.clusters -}}
+{{ if not .disable }}
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .name }}
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  project: {{ $.Values.global.project }}
+  source:
+    path: cluster/
+    repoURL: https://github.com/t6iz8t48/argo-apps.git
+    targetRevision: {{ $.Values.global.revision }}
+    helm:
+      parameters:
+      - name: global.project
+        value: {{ $.Values.global.project }}
+      - name: global.repoURL
+        value: {{ $.Values.global.repoURL }}
+      - name: global.revision
+        value: {{ $.Values.global.revision }}
+      - name: Cluster.name
+        value: {{ .name }}
+      - name: cluster.server
+        value: {{ .server }}
+
+---
+{{- end }}
+{{- end }}

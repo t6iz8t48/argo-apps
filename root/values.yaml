@@ -1,2 +1,10 @@
-root:
-  message: "Message set from root"
+global:
+  project: default
+  repoURL: https://github.com/t6iz8t48/argo-apps.git
+  revision: HEAD
+
+clusters:
+  - name: gerald
+    server: https://kubernetes.default.svc
+  - name: bertrand
+    server: https://kubernetes.default.svc
