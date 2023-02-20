@@ -23,7 +23,7 @@ spec:
       - name: {{ $name }}
         value: {{ $val }}
       {{- end }}
-      values:
+      values: |-
         global:
           {{- range $name, $val := $.Values.global }}
           {{ $name }}: {{ $val | quote }}
