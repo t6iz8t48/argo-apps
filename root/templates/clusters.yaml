@@ -1,10 +1,10 @@
-{{- range $app := .Values.clusters -}}
+{{- range $cluster := .Values.clusters }}
 {{ if not .disable }}
 
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ .name }}
+  name: {{ $cluster.name }}
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
@@ -15,21 +15,23 @@ spec:
   project: {{ $.Values.global.project }}
   source:
     path: cluster/
-    repoURL: https://github.com/t6iz8t48/argo-apps.git
-    targetRevision: {{ $.Values.global.revision }}
+    repoURL: {{ $.Values.global.repoURL }}
+    revision: {{ $.Values.global.revision }}
     helm:
       parameters:
-      - name: global.project
-        value: {{ $.Values.global.project }}
-      - name: global.repoURL
-        value: {{ $.Values.global.repoURL }}
-      - name: global.revision
-        value: {{ $.Values.global.revision }}
-      - name: Cluster.name
-        value: {{ .name }}
-      - name: cluster.server
-        value: {{ .server }}
-
+      {{- range $name, $val := $cluster }}
+      - name: {{ $name }}
+        value: {{ $val }}
+      {{- end }}
+      values:
+        global:
+          {{- range $name, $val := $.Values.global }}
+          {{ $name }}: {{ $val | quote }}
+          {{- end }}
+        cluster:
+          {{- range $name, $val := $cluster }}
+          {{ $name }}: {{ $val | quote }}
+          {{- end }}
 ---
 {{- end }}
 {{- end }}

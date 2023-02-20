@@ -1,10 +1,18 @@
 global:
+  valuesFile: values.yaml
   project: default
   repoURL: https://github.com/t6iz8t48/argo-apps.git
   revision: HEAD
-
+  global-test-0: test-0
+  global-test-1: test-1
+  global-test-2: test-2
+  global-test-3: test-3
 clusters:
   - name: gerald
     server: https://kubernetes.default.svc
+    cluster-test-0: gerald-test-0
+    cluster-test-1: gerald-test-1
   - name: bertrand
     server: https://kubernetes.default.svc
+    cluster-test-0: bertrand-test-0
+    cluster-test-1: bertrand-test-1

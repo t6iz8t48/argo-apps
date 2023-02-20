@@ -8,7 +8,7 @@ metadata:
 spec:
   destination:
     namespace: argocd-apps-test
-    server: {{ .Values.global.server }}
+    server: {{ .Values.cluster.server }}
   project: default
   source:
     path: deploy/helm/hello-kubernetes
